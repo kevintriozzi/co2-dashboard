@@ -14,7 +14,7 @@ const activities = [
 ];
 
 const years = [2024, 2025, 2026, 2027, 2028, 2029, 2030];
-const scenarios = ["Gut", "Mittel", "Schlecht"];
+const scenarios = ["Hohe Reduktion", "Mittlere Reduktion", "Minimale Reduktion"];
 
 export default function CO2Dashboard() {
   const [reductions, setReductions] = useState({});
