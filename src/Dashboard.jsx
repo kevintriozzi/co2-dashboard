@@ -14,7 +14,7 @@ const activities = [
 ];
 
 const years = [2024, 2025, 2026, 2027, 2028, 2029, 2030];
-const scenarios = ["Hohe Reduktion", "Mittlere Reduktion", "Minimale Reduktion"];
+const scenarios = ["Gut", "Mittel", "Schlecht"];
 
 export default function CO2Dashboard() {
   const [reductions, setReductions] = useState({});
@@ -94,15 +94,15 @@ export default function CO2Dashboard() {
           <thead>
             <tr>
               <th className="text-left p-2 border">Aktivität</th>
-              {years.map(year => (
-                <th key={year} className="text-center p-2 border" colSpan={scenarios.length}>{year}</th>
+              {years.map((year, index) => (
+                <th key={year} className={`text-center p-2 border ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`} colSpan={scenarios.length}>{year}</th>
               ))}
             </tr>
             <tr>
               <th></th>
-              {years.map(() => (
-                scenarios.map(scenario => (
-                  <th key={scenario} className="text-center p-1 border">{scenario}</th>
+              {years.map((_, index) => (
+                scenarios.map((scenario, sIndex) => (
+                  <th key={index + scenario} className={`text-center p-1 border ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>{scenario}</th>
                 ))
               ))}
             </tr>
@@ -110,10 +110,10 @@ export default function CO2Dashboard() {
           <tbody>
             {activities.map((activity, idx) => (
               <tr key={idx}>
-                <td className="p-2 border font-medium whitespace-nowrap align-top">{activity}</td>
-                {years.map(year =>
-                  scenarios.map(scenario => (
-                    <td key={activity + year + scenario} className="p-1 border">
+                <td className="p-2 border font-medium whitespace-nowrap align-top bg-gray-50">{activity}</td>
+                {years.map((year, yIndex) => (
+                  scenarios.map((scenario) => (
+                    <td key={activity + year + scenario} className={`p-1 border ${yIndex % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}>
                       <input
                         type="number"
                         className="w-20 p-1 border"
@@ -124,7 +124,7 @@ export default function CO2Dashboard() {
                       />
                     </td>
                   ))
-                )}
+                ))}
               </tr>
             ))}
           </tbody>
