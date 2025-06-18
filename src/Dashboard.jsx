@@ -73,6 +73,8 @@ export default function CO2Dashboard() {
     link.click();
   };
 
+  const getColBg = (colIdx) => colIdx % 6 < 3 ? "bg-gray-100" : "bg-white";
+
   return (
     <div className="p-6 space-y-6">
       <div>
@@ -94,10 +96,10 @@ export default function CO2Dashboard() {
           <thead>
             <tr>
               <th className="text-left p-2 border">Aktivität</th>
-              {years.map((year, index) => (
+              {years.map((year, i) => (
                 <th
                   key={year}
-                  className={`text-center p-2 border font-semibold bg-${index % 2 === 0 ? 'gray-100' : 'white'}`}
+                  className={`text-center p-2 border font-semibold ${i % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
                   colSpan={scenarios.length}
                 >
                   {year}
@@ -106,38 +108,44 @@ export default function CO2Dashboard() {
             </tr>
             <tr>
               <th></th>
-              {years.map((_, index) => (
-                scenarios.map((scenario, sIdx) => (
-                  <th
-                    key={`${index}-${sIdx}`}
-                    className={`text-center p-1 border bg-${index % 2 === 0 ? 'gray-100' : 'white'}`}
-                  >
-                    {scenario}
-                  </th>
-                ))
+              {years.map((_, yIdx) => (
+                scenarios.map((scenario, sIdx) => {
+                  const colIdx = yIdx * scenarios.length + sIdx;
+                  return (
+                    <th
+                      key={`${yIdx}-${sIdx}`}
+                      className={`text-center p-1 border ${getColBg(colIdx)}`}
+                    >
+                      {scenario}
+                    </th>
+                  );
+                })
               ))}
             </tr>
           </thead>
           <tbody>
-            {activities.map((activity, rowIdx) => (
+            {activities.map((activity) => (
               <tr key={activity}>
                 <td className="p-2 border font-medium whitespace-nowrap align-top bg-gray-50">{activity}</td>
-                {years.map((year, yIdx) => (
-                  scenarios.map(scenario => (
-                    <td
-                      key={activity + year + scenario}
-                      className={`p-1 border ${yIdx % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
-                    >
-                      <input
-                        type="number"
-                        className="w-20 p-1 border"
-                        placeholder="0"
-                        min="0"
-                        step="any"
-                        onChange={(e) => handleInputChange(activity, year, scenario, e.target.value)}
-                      />
-                    </td>
-                  ))
+                {years.map((_, yIdx) => (
+                  scenarios.map((scenario, sIdx) => {
+                    const colIdx = yIdx * scenarios.length + sIdx;
+                    return (
+                      <td
+                        key={activity + yIdx + scenario}
+                        className={`p-1 border ${getColBg(colIdx)}`}
+                      >
+                        <input
+                          type="number"
+                          className="w-20 p-1 border"
+                          placeholder="0"
+                          min="0"
+                          step="any"
+                          onChange={(e) => handleInputChange(activity, years[yIdx], scenario, e.target.value)}
+                        />
+                      </td>
+                    );
+                  })
                 ))}
               </tr>
             ))}
