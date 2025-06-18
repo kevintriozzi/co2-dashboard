@@ -73,10 +73,7 @@ export default function CO2Dashboard() {
     link.click();
   };
 
-  const isGrayBg = (colIdx) => {
-    const classMap = ['bg-white', 'bg-gray-100'];
-    return classMap[Math.floor(colIdx / scenarios.length) % 2];
-  };
+  const bgClasses = ['bg-white', 'bg-gray-100'];
 
   return (
     <div className="p-6 space-y-6">
@@ -114,10 +111,11 @@ export default function CO2Dashboard() {
               {years.map((_, yIdx) => (
                 scenarios.map((scenario, sIdx) => {
                   const colIdx = yIdx * scenarios.length + sIdx;
+                  const bgClass = bgClasses[Math.floor(colIdx / scenarios.length) % 2];
                   return (
                     <th
                       key={`${yIdx}-${sIdx}`}
-                      className={`text-center p-1 border ${isGrayBg(colIdx)}`}
+                      className={`text-center p-1 border ${bgClass}`}
                     >
                       {scenario}
                     </th>
@@ -133,10 +131,11 @@ export default function CO2Dashboard() {
                 {years.map((_, yIdx) => (
                   scenarios.map((scenario, sIdx) => {
                     const colIdx = yIdx * scenarios.length + sIdx;
+                    const bgClass = bgClasses[Math.floor(colIdx / scenarios.length) % 2];
                     return (
                       <td
                         key={activity + yIdx + scenario}
-                        className={`p-1 border ${isGrayBg(colIdx)}`}
+                        className={`p-1 border ${bgClass}`}
                       >
                         <input
                           type="number"
