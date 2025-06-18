@@ -137,7 +137,7 @@ export default function CO2Dashboard() {
                       >
                         <input
                           type="number"
-                          className="w-20 p-1 border"
+                          className="w-20 p-1 border bg-transparent"
                           placeholder="0"
                           min="0"
                           step="any"
