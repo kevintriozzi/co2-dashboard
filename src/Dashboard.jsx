@@ -97,7 +97,7 @@ export default function CO2Dashboard() {
               {years.map((year, index) => (
                 <th
                   key={year}
-                  className={`text-center p-2 border font-semibold ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                  className={`text-center p-2 border font-semibold bg-${index % 2 === 0 ? 'gray-100' : 'white'}`}
                   colSpan={scenarios.length}
                 >
                   {year}
@@ -110,7 +110,7 @@ export default function CO2Dashboard() {
                 scenarios.map((scenario, sIdx) => (
                   <th
                     key={`${index}-${sIdx}`}
-                    className={`text-center p-1 border ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                    className={`text-center p-1 border bg-${index % 2 === 0 ? 'gray-100' : 'white'}`}
                   >
                     {scenario}
                   </th>
@@ -119,7 +119,7 @@ export default function CO2Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {activities.map((activity) => (
+            {activities.map((activity, rowIdx) => (
               <tr key={activity}>
                 <td className="p-2 border font-medium whitespace-nowrap align-top bg-gray-50">{activity}</td>
                 {years.map((year, yIdx) => (
